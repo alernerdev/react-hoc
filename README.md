@@ -4,6 +4,7 @@
 
 - Create React App
 - Redux
+- React Routing
 - Redux Promises
 - Jest/JSDom
 - Enzyme

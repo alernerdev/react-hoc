@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "actions";
+import requireAuth from "components/requireAuth";
 
 class CommentBox extends Component {
   state = {
@@ -28,7 +29,10 @@ class CommentBox extends Component {
             <button>Submit Comment</button>
           </div>
         </form>
-        <button className="fetch-comments" onClick={this.props.fetchCommentsAction}>
+        <button
+          className="fetch-comments"
+          onClick={this.props.fetchCommentsAction}
+        >
           Fetch Comments
         </button>
       </div>
@@ -36,11 +40,7 @@ class CommentBox extends Component {
   }
 }
 
-// every component with a connect expects to see a parent up the chain
-// with a Provider wrapper
-
-// first arg is 'map state to props' function
-export default connect(
-  null,
-  actions
-)(CommentBox);
+/* connect component becomes the parent of the child and thats 
+what we are exporting
+*/
+export default connect(null, actions)(requireAuth(CommentBox));

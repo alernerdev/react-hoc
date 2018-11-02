@@ -5,7 +5,9 @@ import { createStore, applyMiddleware } from "redux";
 /* this is for populating redux store with data retrieved asynchronously
 -- respect promises, esentially
 */
-import reduxPromise from "redux-promise";
+//import reduxPromise from "redux-promise";
+import async from 'middlewares/async';
+import stateValidator from 'middlewares/stateValidator';
 
 /* this imports reducers directory, but there is index.js there
  so we are getting combineReducers object
@@ -22,7 +24,10 @@ export default props => {
   const store = createStore(
     reducers,
     props.initialState || {},
-    applyMiddleware(reduxPromise)
+    // if payload for one of the actions returned is a promise, reduxPromise
+    // will wait on it before calling reducers
+    // applyMiddleware(reduxPromise)
+    applyMiddleware(async, stateValidator)
   );
   return <Provider store={store}>{props.children}</Provider>;
 };
